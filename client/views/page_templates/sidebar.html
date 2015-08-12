@@ -1,0 +1,15 @@
+<template name="sidebar">
+  <section class="main">
+    <div class="container">
+      {{> yield "main"}}
+    </div>
+  </section>
+  <section class="sidebar">
+    <div class="container top">
+      {{> yield "top"}}
+    </div>
+    <div class="container bottom">
+      {{> yield "bottom"}}
+    </div>
+  </section>
+</template>

@@ -1,0 +1,30 @@
+@import "bourbon/bourbon";
+@import "bitters/base";
+@import "../lib/variables";
+
+body.fullwidth{
+  height: 100vh;
+  width: 100%;
+  .main {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+    height: 100%;
+    .container {
+      max-width: 600px;
+      background: #fff;
+      position: relative;
+      z-index: 10;
+      border: $base-border;
+    }
+  }
+  &::after {
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: rgba(46, 120, 112, 0.25);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

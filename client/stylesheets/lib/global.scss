@@ -1,0 +1,17 @@
+@import "variables";
+
+body {
+  margin: 0;
+  background: url($bg-pattern);
+  .container {
+    width: 80%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3em;
+    box-sizing: border-box;
+  }
+}
+
+a {
+  cursor: pointer;
+}
