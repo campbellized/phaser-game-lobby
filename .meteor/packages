@@ -14,7 +14,5 @@ lookback:body-class
 meteorhacks:npm
 autopublish
 insecure
-
-
 npm-container
-fds:pixijs
+digioak:meteor-phaser
