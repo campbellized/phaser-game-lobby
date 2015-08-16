@@ -28,6 +28,7 @@ body.sidebar {
     @include flex(1);
 
     height: 100vh;
+    max-height: 100vh;
     background: #fff;
     border-left: $base-border;
     position: relative;
@@ -39,9 +40,28 @@ body.sidebar {
       &.top {
         @include flex(1);
         border-bottom: $base-border;
+        #login-buttons{
+          margin-bottom: 0.75em;
+        }
       }
       &.bottom {
         @include flex(2);
+        @include display(flex);
+        @include flex-direction(column);
+        .chat-wrap{
+          border: 1px solid #c4c4c4;
+          border-radius: 3px;
+          margin-bottom: 0.75em;
+          padding:0.5em;
+          overflow-y: auto;
+          height: em(200);
+          #chat-form{
+            @include flex(2);
+          }
+        }
+        #chat-form{
+          @include flex(1);
+        }
       }
     }
   }

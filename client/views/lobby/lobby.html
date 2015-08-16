@@ -1,14 +1,34 @@
 <template name="header">
-  <h1>Upper Sidebar Content</h1>
+  {{> loginButtons}}
+  <h1>Hello {{currentUser.profile.alias}}</h1>
   <p>Vis ne inani viderer molestiae. Duo in quem novum ludus.</p>
 </template>
 
 <template name="chat">
   <h1>Chat Area</h1>
-  <p>Lorem ipsum dolor sit amet, cu justo feugiat phaedrum per. Vis ne inani viderer molestiae. Duo in quem novum ludus.</p>
+  <div class="chat-wrap">
+    {{> messages}}
+  </div>
+  <form id="chat-form" action="action" name="chatForm">
+    <textarea id="chat-input" name="chatMessage" placeholder="Enter your message"></textarea>
+    <span id='chatMessage-error'></span>
+    <div class="align-right"><input type="submit" id="chat-submit" value="Send"/></div>
+  </form>
 </template>
 
 <template name="content">
   <h1>New Game</h1>
   {{> game}}
+</template>
+
+<template name="messages">
+  <p>
+    {{#if messages}}
+      {{#each messages}}
+        <strong>{{name}}</strong>&#58; {{message}}<br/>
+      {{/each}}
+    {{else}}
+      Enter a message to begin chatting.
+    {{/if}}
+  </p>
 </template>

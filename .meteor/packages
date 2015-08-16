@@ -16,3 +16,6 @@ autopublish
 insecure
 npm-container
 digioak:meteor-phaser
+accounts-ui
+accounts-password
+copleykj:shower
