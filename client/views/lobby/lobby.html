@@ -1,7 +1,11 @@
 <template name="header">
-  {{> loginButtons}}
   <h1>Hello {{currentUser.profile.alias}}</h1>
-  <p>Vis ne inani viderer molestiae. Duo in quem novum ludus.</p>
+  <p>{{lobbySize}} in lobby.</p>
+  <table class="player-list">
+    {{#each usersInLobby}}
+      <td>{{profile.alias}}</td>
+    {{/each}}
+  </table>
 </template>
 
 <template name="chat">
@@ -17,7 +21,10 @@
 </template>
 
 <template name="content">
-  <h1>New Game</h1>
+  <div class="flex-wrap">
+    <h1>Game Name</h1>
+    {{> loginButtons}}
+  </div>
   {{> game}}
 </template>
 

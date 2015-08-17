@@ -1,24 +1,27 @@
 Template.game.onRendered(function(){
 
   if(Session.get('roomId') !== undefined){
-    console.log("YO");
-    var thisRoom = appRooms.findOne({room: Session.get('roomId')});
+    var thisRoom = appRooms.findOne({_id: Session.get('roomId')});
     var player, player1, player2, player3, player4;
 
     if(thisRoom){
       var players = thisRoom.playerIds;
-      players.sort();
-      var index = _.indexOf(players, Meteor.userId());
-      player1 = (players[0]) ? players[0] : null;
-      player2 = (players[1]) ? players[1] : null;
-      player3 = (players[2]) ? players[2] : null;
-      player4 = (players[3]) ? players[3] : null;
-      //player = players[index];
-      console.log(players);
+      if(players){
+        players.sort();
+        var index = _.indexOf(players, Meteor.userId());
+        player1 = (players[0]) ? players[0] : null;
+        player2 = (players[1]) ? players[1] : null;
+        player3 = (players[2]) ? players[2] : null;
+        player4 = (players[3]) ? players[3] : null;
+        //player = players[index];
+        console.log(players);
+      }
     }
 
     var cursors;
     var game = new Phaser.Game(600, 450, Phaser.AUTO, 'gameContainer', { preload: preload, create: create, update: update, render: render });
+  }else{
+    console.log("No room id");
   }
 
   function preload() {
@@ -49,7 +52,6 @@ Template.game.onRendered(function(){
   function update() {
 
       player.body.setZeroVelocity();
-
       if (cursors.up.isDown)
       {
           player.body.moveUp(300)

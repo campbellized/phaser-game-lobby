@@ -8,5 +8,5 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 Meteor.publish('users', function() {
-      return Meteor.users.find();
+  return Meteor.users.find({}, {fields: {profile: 1}});
 });

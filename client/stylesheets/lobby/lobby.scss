@@ -20,6 +20,10 @@ body.sidebar {
       border: $base-border;
       position: relative;
       z-index: 10;
+      .flex-wrap{
+        @include display(flex);
+        @include justify-content(space-between);
+      }
     }
   }
   .sidebar {
@@ -40,8 +44,28 @@ body.sidebar {
       &.top {
         @include flex(1);
         border-bottom: $base-border;
-        #login-buttons{
-          margin-bottom: 0.75em;
+        .player-list{
+          td{
+            padding:0.25em 0.5em;
+            font-size: 0.75em;
+            border: 1px solid #c0c0c0;
+            border-bottom: 0;
+            &:nth-child(1){
+              background-color: #C88DBD;
+            }
+            &:nth-child(1){
+              background-color: #EFBB62;
+            }
+            &:nth-child(1){
+              background-color: #E5EF53;
+            }
+            &:nth-child(1){
+              background-color: #9EEA92;
+            }
+            &:last-of-type{
+              border-bottom: 1px solid #c0c0c0;
+            }
+          }
         }
       }
       &.bottom {
@@ -55,6 +79,9 @@ body.sidebar {
           padding:0.5em;
           overflow-y: auto;
           height: em(200);
+          p{
+            margin-bottom: 0;
+          }
           #chat-form{
             @include flex(2);
           }
