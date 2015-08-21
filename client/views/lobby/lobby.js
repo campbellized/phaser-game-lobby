@@ -45,12 +45,21 @@ Template.header.events({
       function(err){
         if(!err){
           console.log("Alias updated successfully.");
+          Meteor.call('updateChat', Meteor.userId(), alias, function (err, res){
+            if(!err){
+              console.log("Chat record updatged successfully");
+            }else{
+              console.log("There was an error updating your chat record.");
+              console.log(err);
+            }
+          });
           $(e.currentTarget).addClass('hidden');
           $(".player-alias").removeClass('hidden');
         }else{
           console.log("There was a problem updating your alias.");
         }
       });
+
       return false;
     }
   }
@@ -72,7 +81,7 @@ Template.chat.events({
       e.preventDefault();
       var chatMessage = $("#chat-input").val();
       check(chatMessage, String);
-      Messages.insert({room: Session.get('lobbyId'), name: Meteor.user().profile.alias, message: chatMessage},
+      Messages.insert({room: Session.get('lobbyId'), userAlias: Meteor.user().profile.alias, userId: Meteor.userId(), message: chatMessage},
       function(err){
         if(!err){
           console.log("Message inserted successfully.");
