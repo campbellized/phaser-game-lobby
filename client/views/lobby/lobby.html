@@ -1,9 +1,10 @@
 <template name="header">
-  <h1>Hello {{currentUser.profile.alias}}</h1>
+  <h3 class="player-alias">Hello {{currentUser.profile.alias}}</h3>
+  <input class="alias-edit hidden" type="text" spellcheck="false" autofocus="false" value="{{currentUser.profile.alias}}" />
   <p>{{lobbySize}} in lobby.</p>
   <table class="player-list">
     {{#each usersInLobby}}
-      <td>{{profile.alias}}</td>
+      <tr><td>{{profile.alias}}</td></tr>
     {{/each}}
   </table>
 </template>
@@ -29,13 +30,11 @@
 </template>
 
 <template name="messages">
-  <p>
-    {{#if messages}}
-      {{#each messages}}
-        <strong>{{name}}</strong>&#58; {{message}}<br/>
-      {{/each}}
-    {{else}}
-      Enter a message to begin chatting.
-    {{/if}}
-  </p>
+  {{#if messages}}
+    {{#each messages}}
+        <span><strong>{{name}}</strong>&#58; {{message}}</span><br/>
+    {{/each}}
+  {{else}}
+    Enter a message to begin chatting.
+  {{/if}}
 </template>

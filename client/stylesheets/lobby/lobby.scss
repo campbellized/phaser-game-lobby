@@ -24,6 +24,11 @@ body.sidebar {
         @include display(flex);
         @include justify-content(space-between);
       }
+      #gameContainer{
+        height: 450px;
+        width: 600px;
+        content:"sign in to play";
+      }
     }
   }
   .sidebar {
@@ -44,22 +49,44 @@ body.sidebar {
       &.top {
         @include flex(1);
         border-bottom: $base-border;
+        .player-alias{
+          cursor: pointer;
+          &.hidden{
+            display:none;
+          }
+          &:after{
+            font-family: "FontAwesome";
+            content: "\f040";
+            padding-left: 0.25em;
+          }
+        }
+        .alias-edit{
+          padding: 0;
+          box-shadow: none;
+          border-radius: 0;
+          border: none;
+          border-bottom: $base-border;
+          &.hidden{
+            display:none;
+          }
+        }
         .player-list{
           td{
             padding:0.25em 0.5em;
             font-size: 0.75em;
             border: 1px solid #c0c0c0;
             border-bottom: 0;
+            width: 100%;
             &:nth-child(1){
               background-color: #C88DBD;
             }
-            &:nth-child(1){
+            &:nth-child(2){
               background-color: #EFBB62;
             }
-            &:nth-child(1){
+            &:nth-child(3){
               background-color: #E5EF53;
             }
-            &:nth-child(1){
+            &:nth-child(4){
               background-color: #9EEA92;
             }
             &:last-of-type{
@@ -79,14 +106,13 @@ body.sidebar {
           padding:0.5em;
           overflow-y: auto;
           height: em(200);
-          p{
+          font-size: 0.75em;
+          span{
             margin-bottom: 0;
-          }
-          #chat-form{
-            @include flex(2);
           }
         }
         #chat-form{
+          font-size: 0.75em;
           @include flex(1);
         }
       }
