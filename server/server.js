@@ -35,6 +35,7 @@ Meteor.methods({
         console.log("Lobby has "+lobby.playerSize+" visitors.");
         appRooms.update({_id: lobby._id}, {$pull: {playerIds: userId}});
         appRooms.update({_id: lobby._id}, {$inc: {playerSize: -1}});
+        Messages.insert({room: lobby._id, userAlias: user.profile.alias, userId: userId, message: "[" + user.profile.alias + " has left the room.]"});
       }
     }else{
       //console.log("Lobby not found");
