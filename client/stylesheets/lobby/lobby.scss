@@ -3,7 +3,11 @@
 body.sidebar {
   @include display(flex);
   @include flex-direction(row);
-  //@include justify-content(center);
+
+  #login-buttons-open-change-password {
+    display: none;
+  }
+  
   .main {
     @include display(flex);
     @include flex-direction(column);
