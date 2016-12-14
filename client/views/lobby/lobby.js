@@ -7,7 +7,7 @@ Template.header.helpers({
         var lobby = appRooms.findOne({
             _id: Session.get('lobbyId')
         });
-        if(lobby){
+        if(lobby && lobby.playerIds){
             return (lobby.playerIds.length == 1) ? lobby.playerIds.length + " user" : lobby.playerIds.length + " users";
         }
     },
@@ -21,7 +21,7 @@ Template.header.helpers({
             _id: Session.get('lobbyId')
         });
         //lobby.playerIds.sort();
-        if(lobby){
+        if(lobby && lobby.playerIds){
             var users = [];
             lobby.playerIds.forEach(function(element, index, array){
                 //console.log('a[' + index + '] = ' + element);
