@@ -15,7 +15,7 @@ Meteor.methods({
    * @param  {string} userId  The _id of a document in the User collection
    * @return {undefined}
    */
-  joinLobby : function(lobbyId, userId){
+  joinLobby: function(lobbyId, userId){
     console.log("Joining lobby "+lobbyId);
     var thisLobby = appRooms.findOne({_id: lobbyId});
 
@@ -23,8 +23,18 @@ Meteor.methods({
       appRooms.insert({_id: lobbyId});
     }
 
-    appRooms.update({_id: lobbyId}, {$addToSet: {playerIds: userId}});
-    appRooms.update({_id: lobbyId}, {$inc: {playerSize: 1}});
+    appRooms.update({$and: [
+                              {_id: lobbyId},
+                              { playerIds: { $ne: userId} }
+                            ]
+                    },
+                    {$inc: {playerSize: 1}});
+    appRooms.update({$and: [
+                      {_id: lobbyId},
+                      { playerIds: { $ne: userId} }
+                    ]
+                  },
+                  {$addToSet: {playerIds: userId}});
     Meteor.users.update({_id: userId}, {$set: {"status.lobbyId": lobbyId}}, function(err){
       if(!err){
         console.log("user updated successfully");
@@ -39,14 +49,15 @@ Meteor.methods({
    * @param  {string} userId  The _id of a document in the User collection
    * @return {undefined}
    */
-  leaveLobby : function(userId){
+  leaveLobby: function(userId){
     console.log("leaving lobby");
     var user = Meteor.users.findOne({_id: userId});
     var lobby = appRooms.findOne({_id: user.status.lobbyId});
-    if(lobby){
+    if(lobby && lobby.playerSize){
       if(lobby.playerSize == 1){
         console.log("Lobby only has one visitor");
-        appRooms.remove({_id: lobby._id});
+        appRooms.remove({_id: lobbyId});
+        Messages.remove({room: lobbyId});
       }else{
         console.log("Lobby has "+lobby.playerSize+" visitors.");
         appRooms.update({_id: lobby._id}, {$pull: {playerIds: userId}});
@@ -58,7 +69,7 @@ Meteor.methods({
         });
       }
     }else{
-      //console.log("Lobby not found");
+      console.log("Lobby not found");
     }
   }
 });
