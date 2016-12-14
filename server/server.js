@@ -8,10 +8,6 @@ Accounts.onCreateUser(function(options, user) {
   return user;
 });
 
-Meteor.publish('users', function() {
-  return Meteor.users.find();
-});
-
 Meteor.methods({
   /**
    * Adds a new user to a lobby.
@@ -20,6 +16,13 @@ Meteor.methods({
    * @return {undefined}
    */
   joinLobby : function(lobbyId, userId){
+    console.log("Joining lobby "+lobbyId);
+    var thisLobby = appRooms.findOne({_id: lobbyId});
+
+    if(thisLobby === undefined){
+      appRooms.insert({_id: lobbyId});
+    }
+
     appRooms.update({_id: lobbyId}, {$addToSet: {playerIds: userId}});
     appRooms.update({_id: lobbyId}, {$inc: {playerSize: 1}});
     Meteor.users.update({_id: userId}, {$set: {"status.lobbyId": lobbyId}}, function(err){
