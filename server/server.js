@@ -18,7 +18,6 @@ Meteor.methods({
   joinLobby: function(lobbyId, userId){
     console.log("Joining lobby "+lobbyId);
     var thisLobby = appRooms.findOne({_id: lobbyId});
-
     if(thisLobby === undefined){
       appRooms.insert({_id: lobbyId});
     }
@@ -29,12 +28,14 @@ Meteor.methods({
                             ]
                     },
                     {$inc: {playerSize: 1}});
+
     appRooms.update({$and: [
                       {_id: lobbyId},
                       { playerIds: { $ne: userId} }
                     ]
                   },
                   {$addToSet: {playerIds: userId}});
+
     Meteor.users.update({_id: userId}, {$set: {"status.lobbyId": lobbyId}}, function(err){
       if(!err){
         console.log("user updated successfully");
@@ -53,6 +54,12 @@ Meteor.methods({
     console.log("leaving lobby");
     var user = Meteor.users.findOne({_id: userId});
     var lobby = appRooms.findOne({_id: user.status.lobbyId});
+
+    /**
+     * If the last player is leaving, remove the lobby and it's messages.
+     * Otherwise, update the lobby's document in the database.
+     */
+
     if(lobby && lobby.playerSize){
       if(lobby.playerSize == 1){
         console.log("Lobby only has one visitor");
@@ -82,7 +89,7 @@ Meteor.methods({
       Messages.update({userId: id},
                       {$set: {userAlias: alias}},
                       {multi: true});
-  }  
+  }
 });
 
 // Events that will be run when a user logs in

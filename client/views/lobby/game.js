@@ -1,4 +1,5 @@
 Template.game.onRendered(function(){
+    //Start the game once the lobby id is available
     this.autorun(function(){
         var lobbyId = Session.get('lobbyId');
         if(lobbyId !== undefined && !game){
@@ -7,6 +8,7 @@ Template.game.onRendered(function(){
         }
     })
 });
+
 Template.game.onDestroyed(function(){
     //Phaser.Game.destroy();
     game = null;

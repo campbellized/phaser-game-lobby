@@ -24,25 +24,28 @@ Template.header.helpers({
         if(lobby && lobby.playerIds){
             var users = [];
             lobby.playerIds.forEach(function(element, index, array){
-                //console.log('a[' + index + '] = ' + element);
                 users.push(Meteor.users.findOne({
                     _id: element
                 }));
             });
-            //console.log(users);
-            //console.log(users[0]);
         }
         return users;
     }
 });
 
 Template.header.events({
+    /**
+     *  Clicking reveals the <input> to update user alias.
+     */
     'click .player-alias': function(e){
         e.preventDefault();
         $(e.currentTarget).addClass('hidden');
         $(".alias-edit").removeClass('hidden');
         return false;
     },
+    /**
+     * Update the user alias and any references to the user in chat records.
+     */
     'keypress .alias-edit': function(e){
         if(e.which == 13){
             e.preventDefault();
@@ -68,7 +71,7 @@ Template.header.events({
                         console.log("Alias updated successfully.");
                         Meteor.call('updateChat', Meteor.userId(), alias, function(err, res){
                             if(!err){
-                                console.log("Chat record updatged successfully");
+                                console.log("Chat record updated successfully");
                             } else {
                                 console.log("There was an error updating your chat record.");
                                 console.log(err);
