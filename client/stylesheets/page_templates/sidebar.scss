@@ -69,24 +69,26 @@ body.sidebar {
           }
         }
         .player-list{
+          tr{
+            &:nth-child(1) td{
+              background-color: #C88DBD;
+            }
+            &:nth-child(2) td{
+              background-color: #EFBB62;
+            }
+            &:nth-child(3) td{
+              background-color: #E5EF53;
+            }
+            &:nth-child(4) td{
+              background-color: #9EEA92;
+            }
+          }
           td{
             padding:0.25em 0.5em;
             font-size: 0.75em;
             border: 1px solid #c0c0c0;
             border-bottom: 0;
             width: 100%;
-            &:nth-child(1){
-              background-color: #C88DBD;
-            }
-            &:nth-child(2){
-              background-color: #EFBB62;
-            }
-            &:nth-child(3){
-              background-color: #E5EF53;
-            }
-            &:nth-child(4){
-              background-color: #9EEA92;
-            }
             &:last-of-type{
               border-bottom: 1px solid #c0c0c0;
             }
