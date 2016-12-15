@@ -81,8 +81,7 @@ UserStatus.events.on("connectionLogin", function(fields) {
 
 // Events that will be run when a user logs out
 UserStatus.events.on("connectionLogout", function(fields) {
-
-  Meteor.call('leaveLobby', fields.userId, function (err, res){
+  Meteor.call('leaveLobby', fields.userId, function (err){
     if(err){
       console.log(err);
     }
