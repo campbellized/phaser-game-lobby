@@ -56,8 +56,8 @@ Meteor.methods({
     if(lobby && lobby.playerSize){
       if(lobby.playerSize == 1){
         console.log("Lobby only has one visitor");
-        appRooms.remove({_id: lobbyId});
-        Messages.remove({room: lobbyId});
+        appRooms.remove({_id: lobby._id});
+        Messages.remove({room: lobby._id});
       }else{
         console.log("Lobby has "+lobby.playerSize+" visitors.");
         appRooms.update({_id: lobby._id}, {$pull: {playerIds: userId}});
@@ -81,6 +81,7 @@ UserStatus.events.on("connectionLogin", function(fields) {
 
 // Events that will be run when a user logs out
 UserStatus.events.on("connectionLogout", function(fields) {
+
   Meteor.call('leaveLobby', fields.userId, function (err, res){
     if(err){
       console.log(err);
